@@ -9,6 +9,8 @@ const AppContext = createContext({
     langs: [],
     pageRange: {},
     articleModel: {},
+    image: {},
+    setImage: () => {},
     setArticleModel: () => {},
     getlastArticles: () => {},
     getArticles: () => {},
@@ -35,9 +37,10 @@ const Store = ({ children }) => {
         title: '',
         content: [],
         image: '',
-        coments: { comments: [], count: 0 },
+        comments: { comments: [], count: 0 },
         languages: [],
     })
+    const [image, setImage] = useState({})
     const [pageRange, setPageRange] = useState({ min: 0, max: 10, currentPage: 1 })
     
     const getlastArticles = async () => {
@@ -105,6 +108,8 @@ const Store = ({ children }) => {
             langs,
             pageRange,
             articleModel,
+            image,
+            setImage,
             getlastArticles,
             getArticles,
             SetLangArticles,

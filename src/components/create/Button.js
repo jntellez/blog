@@ -24,7 +24,7 @@ const Button = ({ children, action }) => {
 
     const addLineContent = type => {
         const temp = store.articleModel.content
-        const newElement = { _id: crypto.randomUUID(), type, body: 'nuevo' }
+        const newElement = { _id: crypto.randomUUID(), type, body: 'nuevo', order: temp.length }
         temp.push(newElement)
         store.setArticleModel(props => ({ ...props, content: temp }))
     }

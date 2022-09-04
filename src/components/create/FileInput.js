@@ -22,6 +22,7 @@ const Label = styled.label`
     color: #fff;
     font-size: 15px;
     cursor: pointer;
+    transition: all 300ms ease;
 
     &:hover {
         opacity: 0.85;
@@ -52,6 +53,7 @@ const FileInput = () => {
     const handleOnChange = e => {
         const fileName = e.target.value.split('\\')[2]
         const file = e.target.files[0]
+        store.setImage(file)
         const reader = new FileReader()
 
         reader.readAsDataURL(file)

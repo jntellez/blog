@@ -27,9 +27,7 @@ const Articles = () => {
     useEffect(() => {
         store.getArticles()
             .then(articles => {
-                const arts = []
-                for(let i = 0; i < 10; i++) if(articles[i]) arts.push(articles[i])
-                setData({ status: 'success', items: arts })
+                setData({ status: 'success', items: articles })
                 const langs = []
                 let count = []
                 let items = []

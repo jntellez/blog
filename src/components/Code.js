@@ -16,7 +16,7 @@ const Field = styled.code`
     color: ${props => props.strings ? '#049646' : props.comment ? '#9e9e9e' : '#333'};
 `
 
-const Code = ({ content, handleOnFocus }) => {
+const Code = ({ content, handleOnFocus, order }) => {
 
     const destructure = string => {
         const result = []
@@ -80,7 +80,7 @@ const Code = ({ content, handleOnFocus }) => {
     const code = destructure(content)
 
     return (
-        <Container onDoubleClick={handleOnFocus}>
+        <Container onDoubleClick={handleOnFocus} style={{ order }}>
             {
                 code.map(line => <Line key={crypto.randomUUID()}>
                     {

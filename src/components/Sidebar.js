@@ -6,6 +6,7 @@ import Recommended from './Recommended'
 import SelectLang from './SelectLang'
 import Add from './create/Add'
 import Details from './create/Details'
+import CreateButton from './create/CreateButton'
 
 const Aside = styled.aside`
     box-sizing: border-box;
@@ -39,6 +40,7 @@ const Sidebar = ({ page }) => {
             {(page === 'home' || page === 'articles') && <Div><Recommended /></Div>}
             {page === 'create' && <Div><Add /></Div>}
             {page === 'create' && <Div><Details /></Div>}
+            {page === 'create' && <Div><CreateButton /></Div>}
         </Aside>
     )
 }

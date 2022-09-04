@@ -36,6 +36,7 @@ const Add = styled.button`
     color: #fff;
     font-size: 15px;
     cursor: pointer;
+    transition: all 300ms ease;
 
     &:hover {
         opacity: 0.85;

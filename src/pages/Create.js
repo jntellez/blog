@@ -50,7 +50,7 @@ const Bold = styled.b`
 
 const Wrap = styled.div`
     display: flex;
-    min-height: 240px;
+    min-height: 303px;
     flex-direction: column;
     gap: 30px;
     padding: 20px;
@@ -61,7 +61,7 @@ const Create = () => {
         title: '',
         content: [],
         image: '',
-        coments: { comments: [], count: 0 },
+        comments: { comments: [], count: 0 },
         languages: [],
     })
 
@@ -73,8 +73,6 @@ const Create = () => {
     }, [store.articleModel])
     
     const date = new Date().now
-
-    console.log(item)
 
     return (
         <Layout
