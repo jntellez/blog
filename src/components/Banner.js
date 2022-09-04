@@ -44,11 +44,11 @@ const Description = styled.div`
     }
 `
 
-const Banner = ({ title, description, small }) => {
+const Banner = ({ title, description }) => {
     return (
-        <Div small={small}>
-            <Title small={small}>{title}</Title>
-            <Description small={small}>{description}</Description>
+        <Div>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
         </Div>
     )
 }

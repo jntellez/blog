@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-const SelectPage = () => {
+const Pagination = () => {
     return (
         <div>
-
+            
         </div>
     )
 }

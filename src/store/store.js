@@ -8,6 +8,8 @@ const AppContext = createContext({
     scroll: 0,
     langs: [],
     pageRange: {},
+    articleModel: {},
+    setArticleModel: () => {},
     getlastArticles: () => {},
     getArticles: () => {},
     SetLangArticles: () => {},
@@ -29,7 +31,14 @@ const Store = ({ children }) => {
     const [search, setSearch] = useState([])
     const [scroll, setScroll] = useState(0)
     const [langs, setLangs] = useState({ langs: [], count: [] })
-    const [pageRange, setPageRange] = useState({ min: 0, max: 3 })
+    const [articleModel, setArticleModel] = useState({ 
+        title: '',
+        content: [],
+        image: '',
+        coments: { comments: [], count: 0 },
+        languages: [],
+    })
+    const [pageRange, setPageRange] = useState({ min: 0, max: 10, currentPage: 1 })
     
     const getlastArticles = async () => {
         const { data } = await axios.get(`${url}/articles/last`)
@@ -80,10 +89,10 @@ const Store = ({ children }) => {
     const setLanguages = langs => {
         setLangs(langs)
     }
-    
+
     const setOnPageRange = range => {
-        if(range === 'next') setPageRange({ min: pageRange.min + 3, max: pageRange.max + 3 })
-        if(range === 'previous') setPageRange({ min: pageRange.min + 3, max: pageRange.max + 3 })
+        if(range === 'next') setPageRange({ min: pageRange.min + 3, max: pageRange.max + 3, currentPage: pageRange.currentPage + 1 })
+        if(range === 'previous') setPageRange({ min: pageRange.min - 3, max: pageRange.max - 3, currentPage: pageRange.currentPage - 1 })
     }
 
     return (
@@ -95,6 +104,7 @@ const Store = ({ children }) => {
             scroll,
             langs,
             pageRange,
+            articleModel,
             getlastArticles,
             getArticles,
             SetLangArticles,
@@ -105,6 +115,7 @@ const Store = ({ children }) => {
             setOnScroll,
             setLanguages,
             setOnPageRange,
+            setArticleModel,
         }}>
             {children}
         </AppContext.Provider>

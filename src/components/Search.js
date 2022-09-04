@@ -12,7 +12,7 @@ const Input = styled.input`
     background-color: #ececec;
     border-radius: 30px;
     font-size: 16px;
-    font-family: Helvetica;
+    font-family: OpenSans;
     outline: none;
     color: #444;
     margin-bottom: 0;

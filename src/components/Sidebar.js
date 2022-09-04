@@ -4,6 +4,8 @@ import { useAppContext } from '../store/store'
 import Search from './Search'
 import Recommended from './Recommended'
 import SelectLang from './SelectLang'
+import Add from './create/Add'
+import Details from './create/Details'
 
 const Aside = styled.aside`
     box-sizing: border-box;
@@ -32,13 +34,11 @@ const Sidebar = ({ page }) => {
             home={page === 'home'}
             position={scroll >= 340}
         >
-            <Div>
-                <Search />
-            </Div>
+            {page !== 'create' && <Div><Search /></Div>}
             {page === 'articles' && <Div><SelectLang /></Div>}
-            <Div>
-                <Recommended />
-            </Div>
+            {(page === 'home' || page === 'articles') && <Div><Recommended /></Div>}
+            {page === 'create' && <Div><Add /></Div>}
+            {page === 'create' && <Div><Details /></Div>}
         </Aside>
     )
 }

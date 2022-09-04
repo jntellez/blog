@@ -110,7 +110,6 @@ const Article = () => {
     return (
         <Layout
             comments={item.comments.comments}
-            small
         >
             <Header>
                 <Img src={image} alt={item.title} />

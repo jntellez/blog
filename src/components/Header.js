@@ -52,12 +52,14 @@ const Header = ({ page, animation, position }) => {
 
     const store = useAppContext()
 
-    const handleOnScroll = () => {
-        setScroll(document.documentElement.scrollTop)
-        store.setOnScroll(scroll)
+    if(page === 'home') {
+        const handleOnScroll = () => {
+            setScroll(document.documentElement.scrollTop)
+            store.setOnScroll(scroll)
+        }
+    
+        window.addEventListener('scroll', handleOnScroll)
     }
-
-    window.addEventListener('scroll', handleOnScroll)
 
     return (
         <>

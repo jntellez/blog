@@ -25,13 +25,13 @@ const Wrap = styled.div`
     margin: 0 auto;
 `
 
-const Layout = ({ children, title, description, status, small, comments, banner, page }) => {
+const Layout = ({ children, title, description, status, comments, banner, page }) => {
     const store = useAppContext()
     const scroll = store.scroll
 
     return (
         <div>
-            {banner ? <Banner title={title} description={description} small={small} /> : null }
+            {banner ? <Banner title={title} description={description} /> : null }
             {page === 'home' ? <Header animation page={page} /> : <div style={{ marginBottom: '90px' }}></div>}
             <Header position={page === 'home'} />
             <Wrap position={scroll >= 340 ? true : false}>

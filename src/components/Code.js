@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const Container = styled.div`
+    display: block;
     background-color: #eee;
     border-radius: 4px;
     padding: 14px 15px 9px 15px;
@@ -15,7 +16,7 @@ const Field = styled.code`
     color: ${props => props.strings ? '#049646' : props.comment ? '#9e9e9e' : '#333'};
 `
 
-const Code = ({ content }) => {
+const Code = ({ content, handleOnFocus }) => {
 
     const destructure = string => {
         const result = []
@@ -79,7 +80,7 @@ const Code = ({ content }) => {
     const code = destructure(content)
 
     return (
-        <Container>
+        <Container onDoubleClick={handleOnFocus}>
             {
                 code.map(line => <Line key={crypto.randomUUID()}>
                     {

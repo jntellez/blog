@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 import Layout from '../components/Layout'
 import Article from '../components/Article'
-import { useRef } from 'react'
 
 const H2 = styled.h2`
     font-family: Lato;
@@ -29,7 +28,7 @@ const Articles = () => {
         store.getArticles()
             .then(articles => {
                 const arts = []
-                for(let i = 0; i < 3; i++) arts.push(articles[i])
+                for(let i = 0; i < 10; i++) if(articles[i]) arts.push(articles[i])
                 setData({ status: 'success', items: arts })
                 const langs = []
                 let count = []
@@ -62,11 +61,12 @@ const Articles = () => {
         const pageRange = store.pageRange
         const articles = store.articles
         const items = []
-        console.log(articles)
-        for(let i = pageRange.min; i < pageRange.max; i++) items.push(articles[i])
+        for(let i = pageRange.min; i < pageRange.max; i++) {
+            if(articles[i]) items.push(articles[i])
+        }
         if(articles.length > 0) setData({ status: 'success', items })
     }, [store.pageRange])
-
+    console.log(data.items)
     return (
         <Layout
             page={'articles'}
