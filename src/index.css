@@ -1,3 +1,7 @@
+:root {
+    --sticky-header-height: 6rem;
+}
+
 * {
     margin: 0;
 }
@@ -69,4 +73,18 @@ code {
     src: url('/public/fonts/OpenSans-Bold.ttf');
     font-weight: bold;
     font-style: normal;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+  
+.scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+  
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
 }

@@ -7,7 +7,7 @@ const Input = styled.input`
     display: block;
     width: 70%;
     padding: 10px 55px 10px 12px;
-    border: none;
+    border: 1px solid transparent;
     margin: 20px auto;
     background-color: #ececec;
     border-radius: 30px;
@@ -21,7 +21,7 @@ const Input = styled.input`
 
     &:focus {
         border: 1px solid #8083ff;
-        padding: 9px 54px 9px 11px;
+        padding: 10px 55px 10px 12px;
     }
 `
 
@@ -52,8 +52,10 @@ const Search = () => {
     const handleOnSubmit = async e => {
         e.preventDefault()
         
-        const items = await store.getSearch(value)
-        setSearch({ status: 'success', items })
+        if(value) {
+            const items = await store.getSearch(value)
+            setSearch({ status: 'success', items })
+        }
         
         if(search.status === 'success') navigate('/search')
         setValue('')

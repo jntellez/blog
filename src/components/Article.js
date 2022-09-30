@@ -31,6 +31,7 @@ const H3 = styled.h3`
 const P = styled.p`
     max-height: 65px;
     overflow: hidden;
+    font-family: OpenSans;
     font-size: 16px;
     color: #777;
 `

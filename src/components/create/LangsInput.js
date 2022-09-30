@@ -62,7 +62,7 @@ const LangsInput = ({ setLangs, langs, destroy }) => {
             setLangs(props => ({ ...props, languages: temp }))
             setValue('')
         }
-    } 
+    }
 
     return (
         <>

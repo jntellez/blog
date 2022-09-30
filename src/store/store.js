@@ -10,16 +10,25 @@ const AppContext = createContext({
     pageRange: {},
     articleModel: {},
     image: {},
+    tableContent: [],
+    title: '',
+    deleteConfirm: false,
+    message: {},
+    setMessage: () => {},
+    setDeleteConfirm: () => {},
+    setTitle: () => {},
+    setTableContent: () => {},
     setImage: () => {},
     setArticleModel: () => {},
     getlastArticles: () => {},
     getArticles: () => {},
     SetLangArticles: () => {},
+    setLangArticles: () => {},
     getSearch: () => {},
     updateSearch: () => {},
     getArticle: () => {},
     getRecommended: () => {},
-    setOnScroll: () => {},
+    setScroll: () => {},
     setLanguages: () => {},
     setOnPageRange: () => {},
 })
@@ -33,6 +42,9 @@ const Store = ({ children }) => {
     const [search, setSearch] = useState([])
     const [scroll, setScroll] = useState(0)
     const [langs, setLangs] = useState({ langs: [], count: [] })
+    const [title, setTitle] = useState('')
+    const [deleteConfirm, setDeleteConfirm] = useState(false)
+    const [message, setMessage] = useState({ status: false, text: '', color: '' })
     const [articleModel, setArticleModel] = useState({ 
         title: '',
         content: [],
@@ -40,6 +52,7 @@ const Store = ({ children }) => {
         comments: { comments: [], count: 0 },
         languages: [],
     })
+    const [tableContent, setTableContent] = useState([])
     const [image, setImage] = useState({})
     const [pageRange, setPageRange] = useState({ min: 0, max: 10, currentPage: 1 })
     
@@ -85,10 +98,6 @@ const Store = ({ children }) => {
         return items.data
     }
 
-    const setOnScroll = scroll => {
-        setScroll(scroll)
-    }
-
     const setLanguages = langs => {
         setLangs(langs)
     }
@@ -109,15 +118,24 @@ const Store = ({ children }) => {
             pageRange,
             articleModel,
             image,
+            tableContent,
+            title,
+            deleteConfirm,
+            message,
+            setMessage,
+            setDeleteConfirm,
+            setTitle,
+            setTableContent,
             setImage,
             getlastArticles,
             getArticles,
             SetLangArticles,
+            setLangArticles,
             getSearch,
             updateSearch,
             getArticle,
             getRecommended,
-            setOnScroll,
+            setScroll,
             setLanguages,
             setOnPageRange,
             setArticleModel,

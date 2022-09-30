@@ -1,5 +1,6 @@
 import { useAppContext } from '../store/store'
 import styled from 'styled-components'
+import { useEffect } from 'react'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
@@ -7,6 +8,7 @@ import Banner from './Banner'
 import Loading from './Loading'
 import Footer from './Footer'
 import Comments from './Comments'
+import WindowMessage from './WindowMessage'
 
 const Main = styled.main`
     width: 65%;
@@ -29,10 +31,26 @@ const Layout = ({ children, title, description, status, comments, banner, page }
     const store = useAppContext()
     const scroll = store.scroll
 
+    useEffect(() => {
+        store.setLangArticles([])
+    }, [])
+
+    useEffect(() => {
+        store.setMessage(props => ({ ...props, status: true }))
+    }, [store.message.text.length > 0])
+
+    if(page) {
+        const handleOnScroll = () => {
+            store.setScroll(document.documentElement.scrollTop)
+        }
+    
+        window.addEventListener('scroll', handleOnScroll)
+    }
+
     return (
         <div>
             {banner ? <Banner title={title} description={description} /> : null }
-            {page === 'home' ? <Header animation page={page} /> : <div style={{ marginBottom: '90px' }}></div>}
+            {page === 'home' ? <Header animation page={page} /> : null}
             <Header position={page === 'home'} />
             <Wrap position={scroll >= 340 ? true : false}>
                 <Main>
@@ -45,6 +63,7 @@ const Layout = ({ children, title, description, status, comments, banner, page }
                         </Section>: null}
                 </Main>
                 <Sidebar page={page} />
+                <WindowMessage />
             </Wrap>
             <Footer />
         </div>

@@ -28,8 +28,9 @@ const ContainerAnimation = styled.header`
 
 const Container = styled.header`
     width: 100%;
-    position: ${props => props.position ? 'relative' : 'fixed'};
-    margin-bottom: ${props => props.position ? '30px' : '90px'};
+    display: block;
+    position: ${props => props.position ? 'relative' : 'sticky'};
+    margin-bottom: 30px;
     top: 0;
     z-index: 2;
     transition: all 200ms ease;
@@ -55,7 +56,7 @@ const Header = ({ page, animation, position }) => {
     if(page === 'home') {
         const handleOnScroll = () => {
             setScroll(document.documentElement.scrollTop)
-            store.setOnScroll(scroll)
+            store.setScroll(scroll)
         }
     
         window.addEventListener('scroll', handleOnScroll)
@@ -65,9 +66,9 @@ const Header = ({ page, animation, position }) => {
         <>
             {page === 'home' ? <ContainerAnimation
                 animation={page === 'home' ? animation : false}
-                position={page === 'home' ? scroll >= 340 : false}
+                position={scroll >= 340}
             >
-                <Div position={page === 'home' ? scroll >= 340 : false}>
+                <Div position={scroll >= 340}>
                     <Wrap>
                         <Navbar />
                         <Contacts animation />

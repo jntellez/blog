@@ -7,6 +7,10 @@ import SelectLang from './SelectLang'
 import Add from './create/Add'
 import Details from './create/Details'
 import CreateButton from './create/CreateButton'
+import TableContents from './TableContents'
+import UpdateButton from './UpdateButton'
+import DeleteButton from './DeleteButton'
+import DeleteConfirm from './DeleteConfirm'
 
 const Aside = styled.aside`
     box-sizing: border-box;
@@ -25,6 +29,11 @@ const Div = styled.div`
     margin-bottom: 15px;
 `
 
+const WrapButton = styled.div`
+    display: flex;
+    gap: 15px;
+`
+
 const Sidebar = ({ page }) => {
     const store = useAppContext()
 
@@ -38,9 +47,13 @@ const Sidebar = ({ page }) => {
             {page !== 'create' && <Div><Search /></Div>}
             {page === 'articles' && <Div><SelectLang /></Div>}
             {(page === 'home' || page === 'articles') && <Div><Recommended /></Div>}
-            {page === 'create' && <Div><Add /></Div>}
-            {page === 'create' && <Div><Details /></Div>}
+            {(page === 'create' || page === 'update') && <Div><Add /></Div>}
+            {(page === 'create' || page === 'update') && <Div><Details /></Div>}
             {page === 'create' && <Div><CreateButton /></Div>}
+            {page === 'update' && <Div><UpdateButton update /></Div>}
+            {page === 'article' && <Div><TableContents /></Div>}
+            {page === 'article' && <WrapButton><UpdateButton /><DeleteButton /></WrapButton>}
+            {page === 'article' && <WrapButton><DeleteConfirm /></WrapButton>}
         </Aside>
     )
 }

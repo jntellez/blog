@@ -45,6 +45,12 @@ const Details = () => {
     const store = useAppContext()
     
     useEffect(() => {
+        const languages = store.langs.langs
+        const title = store.title
+        setDetails(props => ({ ...props, languages, title }))
+    }, [store.langs])
+
+    useEffect(() => {
         store.setArticleModel(props => ({
             ...props,
             title: details.title,

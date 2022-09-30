@@ -6,6 +6,7 @@ import Articles from './pages/Articles'
 import Create from './pages/Create'
 import Search from './pages/Search'
 import Article from './pages/Article'
+import Update from './pages/Update'
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/create" element={<Create />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/article/:id" element={<Article />} />
+                    <Route path="/update/:id" element={<Update />} />
                 </Routes>
             </BrowserRouter>
         </Store>

@@ -8,10 +8,17 @@ const Container = styled.div`
 `
 
 const Line = styled.div`
-    height: 28px;
+    min-height: 28px;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
 `
 
-const Field = styled.code`
+const Field = styled.pre`
+    display: inline-block;
+    max-width: 100%;
+    font-size: 16px;
     font-family: MononokiNF;
     color: ${props => props.strings ? '#049646' : props.comment ? '#9e9e9e' : '#333'};
 `
@@ -23,16 +30,21 @@ const Code = ({ content, handleOnFocus, order }) => {
 
         let line = []
         let temp = ''
+        let newTemp = ''
         let comment = ''
         for(let i = 0; i < string.length; i++) {
+            if(string[i - 1] === '/' && string[i] !== '/' && comment[1] !== '/') {
+                comment = ''
+            }
             if(string[i] === '/') {
+                if(string[i - 1] !== '/' && comment) comment = ''
                 comment += string[i]
-                if(string[i - 1] === '/' && string[i] === '/') {
-                    line.push({ type: 'plain', body: temp })
+                temp += string[i]
+                if(string[i - 1] === '/') {
+                    for(let c = 0; c < temp.length - 2; c++) newTemp += temp[c]
+                    line.push({ type: 'plain', body: newTemp })
                     temp = ''
-                }
-                else if(string[i - 1] === '/' && string[i - 2] !== '/') {
-                    temp += `/${string[i]}`
+                    newTemp = ''
                 }
             }
             else if(comment[0] === '/' && comment[1] === '/') {
@@ -46,7 +58,7 @@ const Code = ({ content, handleOnFocus, order }) => {
                     }
                 }
             }
-            else if(string[i] === '\n' || i === string.length - 1) {
+            else if(i === (string.length - 1) || string[i] === '\n') {
                 if(string[i - 1] !== '"' || string[i - 1] !== "'" || string[i - 1] !== "`") {
                     temp += string[i]
                     line.push({ type: 'plain', body: temp })
@@ -76,13 +88,13 @@ const Code = ({ content, handleOnFocus, order }) => {
         }
         return result
     }
-
+    
     const code = destructure(content)
 
     return (
         <Container onDoubleClick={handleOnFocus} style={{ order }}>
             {
-                code.map(line => <Line key={crypto.randomUUID()}>
+                code.map(line => <Line className="scrollbar" key={crypto.randomUUID()}>
                     {
                         line.map(el => {
                             switch(el.type) {

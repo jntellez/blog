@@ -35,14 +35,16 @@ const Articles = () => {
                 articles.forEach(article => {
                     items = JSON.parse(article.languages)
                     items.forEach(lang => {
-                        isLang = langs.findIndex(el => el === lang)
-                        if(isLang < 0) {
-                            langs.push(lang)
-                            count.push(1)
-                        }
-                        if(isLang >= 0) {
-                            let index = langs.findIndex(el => el === lang)
-                            count[index]++
+                        if(lang) {
+                            isLang = langs.findIndex(el => el === lang)
+                            if(isLang < 0) {
+                                langs.push(lang)
+                                count.push(1)
+                            }
+                            if(isLang >= 0) {
+                                let index = langs.findIndex(el => el === lang)
+                                count[index]++
+                            }
                         }
                     })
                 });
@@ -64,7 +66,7 @@ const Articles = () => {
         }
         if(articles.length > 0) setData({ status: 'success', items })
     }, [store.pageRange])
-    console.log(data.items)
+    
     return (
         <Layout
             page={'articles'}

@@ -62,16 +62,16 @@ const Sub = styled.h3`
 `
 
 const Normal = styled.p`
-    font-size: 18px;
+    font-size: 17px;
     color: #555;
 `
 
 const Article = () => {
     const { pathname } = useLocation()
-    const id = pathname.split('/')[2]
+    const _id = pathname.split('/')[2]
     
     const [item, setItem] = useState({
-        _id: id,
+        _id,
         title: '',
         content: [],
         date: '',
@@ -90,18 +90,31 @@ const Article = () => {
             count: 0
         }
     })
+
+    const [contents, setContents] = useState([])
     
     const store = useAppContext()
     
     useEffect(() => {
-        store.getArticle(id)
+        store.getArticle(_id)
             .then(article => {
                 const { data } = article
                 const content = JSON.parse(data.content)
                 const comments = JSON.parse(data.comments)
                 setItem({ ...data, content, comments })
             })
-        }, [id])
+        }, [_id])
+
+    useEffect(() => {
+        const temp = []
+        item.content.forEach(item => {
+            if(item.type === 'sub') {
+                temp.push(item.body)
+            }
+            setContents(temp)
+        })
+        store.setTableContent(contents)
+    }, [item, store.articles, contents.length === 0])
 
     const date = new Date(item.date)
         
@@ -109,6 +122,7 @@ const Article = () => {
 
     return (
         <Layout
+            page={'article'}
             comments={item.comments.comments}
         >
             <Header>
@@ -126,7 +140,10 @@ const Article = () => {
             </Header>
             <Wrap>{item.content.map(item => {
                 switch(item.type) {
-                    case 'sub': return <Sub key={crypto.randomUUID()}>{item.body}</Sub>
+                    case 'sub': {
+                        const id = item.body.split(' ').join('-').toLowerCase()
+                        return <Sub id={id} key={crypto.randomUUID()}>{item.body}</Sub>
+                    }
                     case 'normal': return <Normal key={crypto.randomUUID()}>{item.body}</Normal>
                     case 'code': return <Code content={item.body} key={crypto.randomUUID()} />
                     default: return <Code />

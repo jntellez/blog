@@ -53,14 +53,19 @@ const CreateButton = () => {
         const response = await axios.post('http://localhost:3200/api/', article)
         if(response.status === 201) {
             const formData = new FormData()
-            formData.append('file', store.image, store.image.name)
+            formData.append('file', store.image, store.image?.name)
             const savedImage = await axios.post(`http://localhost:3200/api/upload/${response.data}`, formData)
             if(savedImage.status === 200 && savedImage.data) {
                 navigate(`/article/${savedImage.data}`)
+                store.setMessage(props => ({ ...props, text: 'El artículo se ha creado correctamente', color: 'green' }))
+            }
+            else {
+                const text = response.data ? response.data : 'Ha ocurrido un error al crear el artículo'
+                store.setMessage(props => ({ ...props, text, color: 'red' }))
             }
         }
         else {
-            console.log('No se ha podido guardar el articulo')
+            store.setMessage(props => ({ ...props, text: 'Faltan datos para poder crear el artículo', color: 'orange' }))
         }
     }
 

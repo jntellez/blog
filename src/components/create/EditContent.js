@@ -11,7 +11,7 @@ const Sub = styled.h3`
 `
 
 const Normal = styled.p`
-    font-size: 18px;
+    font-size: 17px;
     color: #555;
 `
 
@@ -40,7 +40,7 @@ const NormalInput = styled.textarea`
     width: 100%;
     border: none;
     outline: none;
-    font-size: 18px;
+    font-size: 17px;
     font-family: OpenSans;
     color: #555;
 `
