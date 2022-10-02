@@ -70,7 +70,7 @@ const Navbar = () => {
                 <Li>
                     <NavLink
                         style={({ isActive }) => isActive ? activeLink : styleLink}
-                        to="//"
+                        to="/about"
                     >
                         Sobre mi
                     </NavLink>
@@ -78,7 +78,7 @@ const Navbar = () => {
                 <Li>
                     <NavLink
                         style={({ isActive }) => isActive ? activeLink : styleLink}
-                        to="//"
+                        to="/contact"
                     >
                         Contacto
                     </NavLink>

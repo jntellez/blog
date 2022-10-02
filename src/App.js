@@ -7,6 +7,8 @@ import Create from './pages/Create'
 import Search from './pages/Search'
 import Article from './pages/Article'
 import Update from './pages/Update'
+import About from './pages/About'
+import Contact from './pages/Contact'
 
 function App() {
     return (
@@ -19,6 +21,8 @@ function App() {
                     <Route path="/search" element={<Search />} />
                     <Route path="/article/:id" element={<Article />} />
                     <Route path="/update/:id" element={<Update />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
                 </Routes>
             </BrowserRouter>
         </Store>

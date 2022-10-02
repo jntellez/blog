@@ -46,7 +46,7 @@ const Sidebar = ({ page }) => {
         >
             {page !== 'create' && <Div><Search /></Div>}
             {page === 'articles' && <Div><SelectLang /></Div>}
-            {(page === 'home' || page === 'articles') && <Div><Recommended /></Div>}
+            {(page !== 'create' && page !== 'update' && page !== 'article') && <Div><Recommended /></Div>}
             {(page === 'create' || page === 'update') && <Div><Add /></Div>}
             {(page === 'create' || page === 'update') && <Div><Details /></Div>}
             {page === 'create' && <Div><CreateButton /></Div>}

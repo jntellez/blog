@@ -43,7 +43,7 @@ const Input = styled.input`
 `
 
 const Comment = styled.textarea`
-    width: 100%;
+    max-width: calc(100% - 12px);
     min-height: 120px;
     border: 2px solid #eee;
     border-radius: 4px;
@@ -61,9 +61,16 @@ const Comment = styled.textarea`
 `
 
 const Section = styled.div`
+    width: 100%;
     display: flex;
     gap: 10px;
     margin: 19px 0;
+`
+
+const P = styled.p`
+    font-family: OpenSans;
+    color: #aaa;
+    font-style: italic;
 `
 
 const Comments = ({ comments }) => {
@@ -105,14 +112,14 @@ const Comments = ({ comments }) => {
                         value={values.userName}
                         onChange={e => handleOnChange(e, 'userName')}
                         type='text'
-                        placeholder='Nombre'
+                        placeholder='Nombre *'
                         required
                     />
                     <Input
                         value={values.email}
                         onChange={e => handleOnChange(e, 'email')}
                         type='email'
-                        placeholder='Email'
+                        placeholder='Email *'
                         required
                     />
                     <Input
@@ -122,11 +129,12 @@ const Comments = ({ comments }) => {
                         placeholder='Web'
                     />
                 </Section>
-                <Section>
+                <Section style={{ flexDirection: 'column', gap: 0 }}>
+                <P>Envuelve tu texto en las etiquetas &lt;CODE&gt; &lt;/CODE&gt; para darle formato de código</P>
                     <Comment
                         value={values.message}
                         onChange={e => handleOnChange(e, 'message')}
-                        placeholder='Comentario'
+                        placeholder='Comentario *'
                         required
                     />
                 </Section>

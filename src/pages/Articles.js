@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import Layout from '../components/Layout'
 import Article from '../components/Article'
+import Pagination from '../components/Pagination'
 
 const H2 = styled.h2`
     font-family: Lato;
@@ -21,6 +22,7 @@ const Wrap = styled.div`
 
 const Articles = () => {
     const [data, setData] = useState({ status: 'pending', items: [] })
+    const [currentPage, setCurrentPage] = useState(0)
 
     const store = useAppContext()
 
@@ -55,18 +57,13 @@ const Articles = () => {
     useEffect(() => {  
         const newArticles = store.langArticles
         if(newArticles.length > 0) setData({ status: 'success', items: newArticles})
+        setCurrentPage(0)
     }, [store.langArticles])
 
-    useEffect(() => {
-        const pageRange = store.pageRange
-        const articles = store.articles
-        const items = []
-        for(let i = pageRange.min; i < pageRange.max; i++) {
-            if(articles[i]) items.push(articles[i])
-        }
-        if(articles.length > 0) setData({ status: 'success', items })
-    }, [store.pageRange])
-    
+    const filteredArticles = () => {
+        return data.items.slice(currentPage, currentPage + 10)
+    }
+
     return (
         <Layout
             page={'articles'}
@@ -75,8 +72,14 @@ const Articles = () => {
         >
             <H2>Artículos</H2>
             <Wrap>
-                {data.items.map(item => <Article key={item._id} article={item} />)}
+                {filteredArticles().map(item => <Article key={item._id} article={item} />)}
             </Wrap>
+            
+            <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                dataLength={data.items.length}
+            />
         </Layout>
     )
 }

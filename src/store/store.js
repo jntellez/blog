@@ -54,7 +54,6 @@ const Store = ({ children }) => {
     })
     const [tableContent, setTableContent] = useState([])
     const [image, setImage] = useState({})
-    const [pageRange, setPageRange] = useState({ min: 0, max: 10, currentPage: 1 })
     
     const getlastArticles = async () => {
         const { data } = await axios.get(`${url}/articles/last`)
@@ -102,11 +101,6 @@ const Store = ({ children }) => {
         setLangs(langs)
     }
 
-    const setOnPageRange = range => {
-        if(range === 'next') setPageRange({ min: pageRange.min + 3, max: pageRange.max + 3, currentPage: pageRange.currentPage + 1 })
-        if(range === 'previous') setPageRange({ min: pageRange.min - 3, max: pageRange.max - 3, currentPage: pageRange.currentPage - 1 })
-    }
-
     return (
         <AppContext.Provider value={{
             last,
@@ -115,7 +109,6 @@ const Store = ({ children }) => {
             search,
             scroll,
             langs,
-            pageRange,
             articleModel,
             image,
             tableContent,
@@ -137,7 +130,6 @@ const Store = ({ children }) => {
             getRecommended,
             setScroll,
             setLanguages,
-            setOnPageRange,
             setArticleModel,
         }}>
             {children}

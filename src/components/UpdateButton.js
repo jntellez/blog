@@ -39,11 +39,12 @@ const UpdateButton = ({ update }) => {
     useEffect(() => {
         const stringContent = JSON.stringify(articleModel.content)
         const stringLanguages = JSON.stringify(articleModel.languages)
+        const stringComments = JSON.stringify(articleModel.comments)
         setArticle({
             title: articleModel.title,
             content: stringContent,
             image: null,
-            comments: '{"comments":[],"count":0}',
+            comments: stringComments,
             languages: stringLanguages,
         })
     }, [store.articleModel])
@@ -55,7 +56,6 @@ const UpdateButton = ({ update }) => {
         const response = await axios.put(`http://localhost:3200/api/${_id}`, article)
         if(response.status === 204) {
             const formData = new FormData()
-            console.log(store.image, store.image.name)
             formData.append('file', store.image, store.image.name ? store.image.name : article.title)
             const savedImage = await axios.post(`http://localhost:3200/api/upload/${response.data ? response.data : _id}`, formData)
             if(savedImage.status === 200 && savedImage.data) {
