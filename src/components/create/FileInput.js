@@ -37,6 +37,7 @@ const Content = styled.div`
 const TextContent = styled.div`
     padding: 5px;
     margin-left: 5px;
+    color: ${({ small }) => small ? '#666' : '#444'};
 `
 
 const ImageContent = styled.img`
@@ -45,7 +46,7 @@ const ImageContent = styled.img`
     border-radius: 4px;
 `
 
-const FileInput = () => {
+const FileInput = ({ small, text }) => {
     const [value, setValue] = useState({ fileName: '', image: '' })
 
     const store = useAppContext()
@@ -67,11 +68,11 @@ const FileInput = () => {
     return (
         <>
             <Content>
-                <Label htmlFor="select-file">Subir imagen</Label>
+                <Label htmlFor="select-file">{text || 'Subir imagen'}</Label>
                 <SelectFile id="select-file" type={'file'} onChange={handleOnChange} />
-                <TextContent>{value.fileName}</TextContent>
+                <TextContent small={small}>{value.fileName}</TextContent>
             </Content>
-            <ImageContent src={value.image} />
+            {small || <ImageContent src={value.image} />}
         </>
     )
 }

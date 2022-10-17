@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import FileInput from '../components/create/FileInput'
+
 const Container = styled.div`
     width: 20%;
     margin: 220px auto;
@@ -133,7 +135,6 @@ const Register = () => {
             setValue({ name: '', lastname: '', email: '', password: '' })
             navigate('/')
         }
-
     }
     
     return (
@@ -154,6 +155,7 @@ const Register = () => {
                         small
                     />
                 </Div>
+                <FileInput small text="Upload image" />
                 <Input
                     value={value.email}
                     onChange={e => handleOnChange(e, 'email')}
