@@ -15,6 +15,8 @@ const AppContext = createContext({
     deleteConfirm: false,
     message: {},
     stateAuth: false,
+    role: 'guest',
+    setRole: () => {},
     setStateAuth: () => {},
     setMessage: () => {},
     setDeleteConfirm: () => {},
@@ -56,19 +58,27 @@ const Store = ({ children }) => {
     })
     const [tableContent, setTableContent] = useState([])
     const [image, setImage] = useState({})
+    const [role, setRole] = useState('')
     const setAuth = async () => {
-        if(!localStorage.getItem('user')) return
+        if(role === 'guest') return false
+        if(role === 'user') return false
+        if(!localStorage.getItem('user')) {
+            setRole('guest')
+            return false
+        }
         const res = await fetch('http://localhost:3200/api/checkAuth', {
             headers: {
                 Authorization: localStorage.getItem('user')
             }
         })
         
-        if(!res) return
+        if(!res) return false
         const response = await res.text()
-        if(response !== 'true') return
-        const responseData = JSON.parse(response)
-        setStateAuth(responseData === true ? true : false)
+        if(response !== 'admin') {
+            setRole('user')
+            return false
+        }
+        setStateAuth(response === 'admin' ? true : false)
         return true
     }
 
@@ -135,6 +145,8 @@ const Store = ({ children }) => {
             deleteConfirm,
             message,
             stateAuth,
+            role,
+            setRole,
             setStateAuth,
             setMessage,
             setDeleteConfirm,

@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAppContext } from '../store/store'
+import axios from 'axios'
 
 import FileInput from '../components/create/FileInput'
 
 const Container = styled.div`
     width: 20%;
-    margin: 220px auto;
+    margin: 210px auto;
     background-color: #fff;
     box-shadow: 0 0 20px rgb(0, 0, 0, 0.1);
     border-radius: 4px;
@@ -107,6 +109,8 @@ const Register = () => {
 
     const navigate = useNavigate()
 
+    const store = useAppContext()
+
     const handleOnChange = ({ target }, field) => {
         setValue(props => ({ ...props, [field]: target.value }))
     }
@@ -123,15 +127,22 @@ const Register = () => {
             }
         })
 
-        const responseData = await response.text()
+        const responseData = await response.json()
         if(response.status >= 300) {
             setError(responseData)
         }
         else {
             setError('')
             if(!localStorage.getItem('user')) {
-                localStorage.setItem('user', `Bearer ${responseData}`)
+                localStorage.setItem('user', `Bearer ${responseData.signed}`)
             }
+
+            const formData = new FormData()
+            formData.append('file', store.image, store.image?.name)
+            await axios.post(`http://localhost:3200/api/userUpload/${responseData._id}`, formData, {
+                headers: { Authorization: localStorage.getItem('user') }
+            })
+
             setValue({ name: '', lastname: '', email: '', password: '' })
             navigate('/')
         }

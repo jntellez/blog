@@ -1,7 +1,10 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAppContext } from '../store/store'
 import axios from 'axios'
+
+import imageUser from '../assets/img/user-image.webp'
 
 const Container = styled.div`
     width: 20%;
@@ -114,7 +117,7 @@ const UserName = styled.p`
     font-family: OpenSans;
     font-size: 15px;
     text-transform: capitalize;
-    padding: 17px 15px 13px 15px;
+    padding: 17px 15px 13px 6px;
 `
 
 const LogOut = styled.span`
@@ -134,12 +137,34 @@ const LogOut = styled.span`
     }
 `
 
+const Image = styled.img`
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    margin: 7px;
+    box-shadow: 0 0 6px rgb(0, 0, 0, 0.18);
+`
+
 const Login = () => {
     const [value, setValue] = useState({ email: '', password: '' })
     const [error, setError] = useState('')
-    const [userName, setUserName] = useState('')
+    const [user, setUser] = useState({ userName: '', image: '' })
 
     const navigate = useNavigate()
+
+    const store = useAppContext()
+
+    useEffect(() => {
+        if(!localStorage.getItem('user')) return
+        axios.get('http://localhost:3200/api/getUser', {
+            headers: { Authorization: localStorage.getItem('user') }
+        }).then(res => {
+            const { name, lastname } = res.data
+            const image = res.data.image ?? ''
+            const userName = `${name} ${lastname}`
+            setUser(props => ({ ...props, userName, image }))
+        })
+    }, [])
 
     const handleOnChange = ({ target }, field) => {
         setValue(props => ({ ...props, [field]: target.value }))
@@ -170,19 +195,14 @@ const Login = () => {
         }
     }
 
-    axios.get('http://localhost:3200/api/getUser', {
-        headers: { Authorization: localStorage.getItem('user') }
-    }).then(res => {
-        const { name, lastname } = res.data
-        const user = `${name} ${lastname}`
-        setUserName(user)
-    })
-
     const handleOnClick = () => {
         localStorage.removeItem('user')
+        store.setStateAuth(false)
         navigate('/')
     }
-    
+
+    const userImage = user.image ? `http://localhost:3200/api/image/${user.image}` : imageUser
+
     return (
         <>
             <Container>
@@ -206,8 +226,9 @@ const Login = () => {
                     </Div>
                 </Form>
             </Container>
-            {userName && <UserBox>
-                <UserName>{userName}</UserName>
+            {user.userName && <UserBox>
+                <Image src={userImage} alt={'user'} />
+                <UserName>{user.userName}</UserName>
                 <LogOut onClick={handleOnClick}>n</LogOut>
             </UserBox>}
         </>
