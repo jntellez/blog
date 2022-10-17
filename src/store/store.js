@@ -14,6 +14,8 @@ const AppContext = createContext({
     title: '',
     deleteConfirm: false,
     message: {},
+    stateAuth: false,
+    setStateAuth: () => {},
     setMessage: () => {},
     setDeleteConfirm: () => {},
     setTitle: () => {},
@@ -54,6 +56,23 @@ const Store = ({ children }) => {
     })
     const [tableContent, setTableContent] = useState([])
     const [image, setImage] = useState({})
+    const setAuth = async () => {
+        if(!localStorage.getItem('user')) return
+        const res = await fetch('http://localhost:3200/api/checkAuth', {
+            headers: {
+                Authorization: localStorage.getItem('user')
+            }
+        })
+        
+        if(!res) return
+        const response = await res.text()
+        if(response !== 'true') return
+        const responseData = JSON.parse(response)
+        setStateAuth(responseData === true ? true : false)
+        return true
+    }
+
+    const [stateAuth, setStateAuth] = useState(setAuth() === true ? true : false)
     
     const getlastArticles = async () => {
         const { data } = await axios.get(`${url}/articles/last`)
@@ -100,7 +119,7 @@ const Store = ({ children }) => {
     const setLanguages = langs => {
         setLangs(langs)
     }
-
+    
     return (
         <AppContext.Provider value={{
             last,
@@ -115,6 +134,8 @@ const Store = ({ children }) => {
             title,
             deleteConfirm,
             message,
+            stateAuth,
+            setStateAuth,
             setMessage,
             setDeleteConfirm,
             setTitle,

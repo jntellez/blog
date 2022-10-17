@@ -23,7 +23,7 @@ const Input = styled.input`
     display: block;
     width: ${props => props.langs ? '72%' : '93%'};
     padding: 10px;
-    border: none;
+    border: 1px solid transparent;
     background-color: #ececec;
     border-radius: 4px;
     font-size: 16px;
@@ -35,19 +35,20 @@ const Input = styled.input`
 
     &:focus {
         border: 1px solid #8083ff;
-        padding: 9px;
     }
 `
 
-const Details = () => {
+const Details = ({ page }) => {
     const [details, setDetails] = useState({ title: '', languages: [] })
 
     const store = useAppContext()
     
     useEffect(() => {
-        const languages = store.langs.langs
-        const title = store.title
-        setDetails(props => ({ ...props, languages, title }))
+        if(page === 'update') {
+            const languages = store.langs.langs
+            const title = store.title
+            setDetails(props => ({ ...props, languages, title }))
+        }
     }, [store.langs])
 
     useEffect(() => {

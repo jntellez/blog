@@ -48,12 +48,12 @@ const Sidebar = ({ page }) => {
             {page === 'articles' && <Div><SelectLang /></Div>}
             {(page !== 'create' && page !== 'update' && page !== 'article') && <Div><Recommended /></Div>}
             {(page === 'create' || page === 'update') && <Div><Add /></Div>}
-            {(page === 'create' || page === 'update') && <Div><Details /></Div>}
+            {(page === 'create' || page === 'update') && <Div><Details page={page} /></Div>}
             {page === 'create' && <Div><CreateButton /></Div>}
             {page === 'update' && <Div><UpdateButton update /></Div>}
             {page === 'article' && <Div><TableContents /></Div>}
-            {page === 'article' && <WrapButton><UpdateButton /><DeleteButton /></WrapButton>}
-            {page === 'article' && <WrapButton><DeleteConfirm /></WrapButton>}
+            {page === 'article' && store.stateAuth && <WrapButton><UpdateButton /><DeleteButton /></WrapButton>}
+            {page === 'article' && store.stateAuth && <WrapButton><DeleteConfirm /></WrapButton>}
         </Aside>
     )
 }

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
+import { useAppContext } from '../store/store'
 
 const Li = styled.li`
     display: block;
@@ -40,6 +41,8 @@ const activeLink = {
 }
 
 const Navbar = () => {
+    const store = useAppContext()
+
     return (
         <nav style={{ display: 'inline-block' }}>
             <Ul>
@@ -59,14 +62,17 @@ const Navbar = () => {
                         Artículos
                     </NavLink>
                 </Li>
-                <Li>
-                    <NavLink
-                        style={({ isActive }) => isActive ? activeLink : styleLink}
-                        to="/create"
-                    >
-                        Crear
-                    </NavLink>
-                </Li>
+                {store.stateAuth &&
+                    <Li>
+                        <NavLink
+                            style={({ isActive }) => isActive ? activeLink : styleLink}
+                            to="/create"
+                        >
+                            Crear
+                        </NavLink>
+                    </Li>
+                }
+                
                 <Li>
                     <NavLink
                         style={({ isActive }) => isActive ? activeLink : styleLink}

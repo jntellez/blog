@@ -64,7 +64,9 @@ const DeleteConfirm = () => {
     const _id = pathname.split('/')[2]
 
     const handleOnClick = () => {
-        axios.delete(`http://localhost:3200/api/${_id}`)
+        axios.delete(`http://localhost:3200/api/${_id}`, {
+            headers: { Authorization: localStorage.getItem('user') }
+        })
             .then(response => {
                 if(response.status === 204) {
                     if(store.deleteConfirm === true) store.setDeleteConfirm(false)

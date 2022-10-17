@@ -7,7 +7,7 @@ const Input = styled.input`
     display: block;
     width: ${props => props.langs ? '72%' : '93%'};
     padding: 10px;
-    border: none;
+    border: 1px solid transparent;
     background-color: #ececec;
     border-radius: 4px;
     font-size: 16px;
@@ -19,7 +19,6 @@ const Input = styled.input`
 
     &:focus {
         border: 1px solid #8083ff;
-        padding: 9px;
     }
 `
 

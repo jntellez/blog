@@ -83,11 +83,13 @@ const Update = () => {
                 const langs = JSON.parse(data.languages)
                 const title = data.title
 
-                axios.request({
-                    url: `http://localhost:3200/api/image/${data.image}`,
-                    method: "GET",
-		            responseType: "blob"
-                }).then(response => store.setImage(response.data !== null ? response.data : defaultImage))
+                if(data.image) {
+                    axios.request({
+                        url: `http://localhost:3200/api/image/${data.image}`,
+                        method: "GET",
+                        responseType: "blob"
+                    }).then(response => store.setImage(response.data !== null ? response.data : defaultImage))
+                }
 
                 setTitle(title)
                 store.setTitle(title)
@@ -108,7 +110,7 @@ const Update = () => {
     
     const date = new Date().now
     
-    const image = item.image.length < 400 ? `http://localhost:3200/api/image/${item.image}` : item.image
+    const image = item.image.length < 400 ? item.image ? `http://localhost:3200/api/image/${item.image}` : null : item.image
 
     return (
         <Layout
