@@ -58,13 +58,15 @@ const Delete = styled.button`
 const DeleteConfirm = () => {
     const store = useAppContext()
 
+    const { url } = store
+
     const navigate = useNavigate()
 
     const { pathname } = useLocation()
     const _id = pathname.split('/')[2]
 
     const handleOnClick = () => {
-        axios.delete(`http://localhost:3200/api/${_id}`, {
+        axios.delete(`${url}/${_id}`, {
             headers: { Authorization: localStorage.getItem('user') }
         })
             .then(response => {

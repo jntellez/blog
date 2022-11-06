@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useAppContext } from '../store/store'
 import axios from 'axios'
 import styled from 'styled-components'
 
@@ -74,9 +75,25 @@ const P = styled.p`
 `
 
 const Comments = ({ comments }) => {
-    const [values, setValues] = useState({ userName: '', email: '', web: '', message: '' })
+    const [values, setValues] = useState({ userName: '', email: '', web: '', userImage: '', message: '' })
+
+    useEffect(() => {
+        if(!localStorage.getItem('user')) return
+        axios.get(`${url}/getUser`, {
+            headers: { Authorization: localStorage.getItem('user') }
+        }).then(res => {
+            const { name, lastname, email } = res.data
+            const userImage = res.data.image ?? ''
+            const userName = `${name} ${lastname}`
+            setValues(props => ({ ...props, userName, email, userImage }))
+        })
+    }, [])
 
     const { pathname } = useLocation()
+
+    const store = useAppContext()
+
+    const { url } = store
 
     const handleOnChange = (e, field) => {
         setValues(props => ({...props, [field]: e.target.value}))
@@ -85,17 +102,20 @@ const Comments = ({ comments }) => {
     const handleOnSubmit = e => {
         e.preventDefault()
 
+        const { userName, email, web, userImage, message } = values
+
         const comment = {
             _id: crypto.randomUUID(),
-            userName: values.userName,
-            email: values.email,
-            web: values.web,
-            message: values.message,
+            userName,
+            email,
+            web,
+            userImage,
+            message,
             date: Date.now()
         }
 
         const id = pathname.split('/')[2]
-        axios.patch(`http://localhost:3200/api/comment/${id}`, comment)
+        axios.patch(`${url}/comment/${id}`, comment)
         comments.push(comment)
         setValues({ userName: '', email: '', web: '', message: '' })
     }
@@ -104,7 +124,7 @@ const Comments = ({ comments }) => {
         <>
             <H2>Comentarios</H2>
             {comments.length > 0 && <Container>
-                {comments.map(comment => <Message comment={comment} key={comment._id} />)}
+                {comments.map(comment => <Message image={comment.userImage} comment={comment} key={comment._id} />)}
             </Container>}
             <Form onSubmit={handleOnSubmit} id="comments">
                 <Section>

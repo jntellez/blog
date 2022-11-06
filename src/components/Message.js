@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Moment from 'react-moment'
 import 'moment/locale/es'
 import styled from 'styled-components'
+import { useAppContext } from '../store/store'
 
 import userImage from '../assets/img/user-image.webp'
 import Code from './Code'
@@ -37,8 +38,10 @@ const DateSpan = styled.span`
     font-weight: normal;
 `
 
-const Message = ({ comment }) => {
+const Message = ({ comment, image }) => {
     const [message, setMessage] = useState([])
+
+    const { url } = useAppContext()
     
     const date = new Date(comment.date)
 
@@ -84,9 +87,11 @@ const Message = ({ comment }) => {
         setMessage(message)
     }, [])
 
+    const imageSrc = image ? `${url}/image/${image}` : userImage
+
     return (
         <Div>
-            <Img src={userImage} alt={comment.userName} />
+            <Img src={imageSrc} alt={comment.userName} />
             <Container>
                 <User>{comment.userName}<DateSpan> - <Moment fromNow>{date}</Moment></DateSpan></User>
                 {message.map(el => {

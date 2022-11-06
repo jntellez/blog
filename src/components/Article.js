@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { useAppContext } from '../store/store'
 import Moment from 'react-moment'
 import 'moment/locale/es'
 
@@ -50,6 +51,10 @@ const Date = styled.div`
 
 const Article = ({ article }) => {
     const refDate = useRef()
+
+    const store = useAppContext()
+
+    const { url } = store
     
     const handleHover = ref => {
         ref.current.style.paddingRight = '21%'
@@ -73,7 +78,7 @@ const Article = ({ article }) => {
     const body = content[1]?.body
     const description = makeDescription(body)
 
-    const image = `http://localhost:3200/api/image/${article.image}`
+    const image = `${url}/image/${article.image}`
 
     return (
         <Container

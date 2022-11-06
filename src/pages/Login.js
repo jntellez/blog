@@ -145,18 +145,34 @@ const Image = styled.img`
     box-shadow: 0 0 6px rgb(0, 0, 0, 0.18);
 `
 
+const ShowToggle = styled.span`
+    font-family: WebSymbolsRegular;
+    position: relative;
+    bottom: 29px;
+    left: 91%;
+    color: #aaa;
+    cursor: pointer;
+`
+
+const PasswordDiv = styled.div`
+    width: 100%;
+`
+
 const Login = () => {
     const [value, setValue] = useState({ email: '', password: '' })
     const [error, setError] = useState('')
     const [user, setUser] = useState({ userName: '', image: '' })
+    const [statePass, setStatePass] = useState(true)
 
     const navigate = useNavigate()
 
     const store = useAppContext()
 
+    const url = store.url
+
     useEffect(() => {
         if(!localStorage.getItem('user')) return
-        axios.get('http://localhost:3200/api/getUser', {
+        axios.get(`${url}/getUser`, {
             headers: { Authorization: localStorage.getItem('user') }
         }).then(res => {
             const { name, lastname } = res.data
@@ -173,7 +189,7 @@ const Login = () => {
     const handleOnSubmit = async e => {
         e.preventDefault()
 
-        const response = await fetch('http://localhost:3200/api/login', {
+        const response = await fetch(`${url}/login`, {
             method: 'POST',
             body: JSON.stringify(value),
             headers: {
@@ -190,6 +206,10 @@ const Login = () => {
             if(!localStorage.getItem('user')) {
                 localStorage.setItem('user', `Bearer ${responseData}`)
             }
+            else {
+                localStorage.removeItem('user')
+                localStorage.setItem('user', `Bearer ${responseData}`)
+            }
             setValue({ email: '', password: '' })
             navigate('/')
         }
@@ -201,7 +221,7 @@ const Login = () => {
         navigate('/')
     }
 
-    const userImage = user.image ? `http://localhost:3200/api/image/${user.image}` : imageUser
+    const userImage = user.image ? `${url}/image/${user.image}` : imageUser
 
     return (
         <>
@@ -209,15 +229,21 @@ const Login = () => {
                 <Title>Login</Title>
                 <Form onSubmit={handleOnSubmit}>
                     <Input
+                        type="email"
                         value={value.email}
                         onChange={e => handleOnChange(e, 'email')}
                         placeholder="Email"
                     />
-                    <Input
-                        value={value.password}
-                        onChange={e => handleOnChange(e, 'password')}
-                        placeholder="Password"
-                    />
+                    <PasswordDiv>
+                        <Input
+                            style={{ width: "calc(100% - 16px)" }}
+                            type={statePass ? 'password' : 'text'}
+                            value={value.password}
+                            onChange={e => handleOnChange(e, 'password')}
+                            placeholder="Password"
+                        />
+                        <ShowToggle onClick={() => setStatePass(!statePass)}>J</ShowToggle>
+                    </PasswordDiv>
                     <Button>Login</Button>
                     {error && <Error>{error}</Error>}
                     <Div>

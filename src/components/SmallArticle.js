@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useAppContext } from '../store/store'
 import styled from 'styled-components'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
@@ -29,6 +30,10 @@ const Content = styled.p`
 
 const SmallArticle = ({ item }) => {
 
+    const store = useAppContext()
+
+    const { url } = store
+
     const makeTitle = (item) => {
         const limit = 8
         const array = item.split(' ')
@@ -53,7 +58,7 @@ const SmallArticle = ({ item }) => {
 
     const title = makeTitle(item.title)
 
-    const image = `http://localhost:3200/api/image/${item.image}`
+    const image = `${url}/image/${item.image}`
 
     return (
         <Link to={`/article/${item._id}`} style={{ textDecoration: 'none' }}>

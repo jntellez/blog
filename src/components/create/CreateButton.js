@@ -33,6 +33,8 @@ const CreateButton = () => {
 
     const store = useAppContext()
 
+    const { url } = store
+
     const articleModel = store.articleModel
 
     const navigate = useNavigate()
@@ -50,13 +52,13 @@ const CreateButton = () => {
     }, [store.articleModel])
 
     const handleOnClick = async () => {
-        const response = await axios.post('http://localhost:3200/api/', article, {
+        const response = await axios.post(`${url}/`, article, {
             headers: { Authorization: localStorage.getItem('user') }
         })
         if(response.status === 201) {
             const formData = new FormData()
             formData.append('file', store.image, store.image?.name)
-            const savedImage = await axios.post(`http://localhost:3200/api/upload/${response.data}`, formData, {
+            const savedImage = await axios.post(`${url}/upload/${response.data}`, formData, {
                 headers: { Authorization: localStorage.getItem('user') }
             })
             if(savedImage.status === 200 && savedImage.data) {

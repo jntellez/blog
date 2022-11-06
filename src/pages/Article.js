@@ -94,6 +94,8 @@ const Article = () => {
     const [contents, setContents] = useState([])
     
     const store = useAppContext()
+
+    const { url } = store
     
     useEffect(() => {
         store.getArticle(_id)
@@ -118,7 +120,7 @@ const Article = () => {
 
     const date = new Date(item.date)
         
-    const image = item.image ? `http://localhost:3200/api/image/${item.image}` : defaultImage
+    const image = item.image ? `${url}/image/${item.image}` : defaultImage
 
     return (
         <Layout

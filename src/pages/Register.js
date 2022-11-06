@@ -103,13 +103,29 @@ const Change = styled.a`
     }
 `
 
+const ShowToggle = styled.span`
+    font-family: WebSymbolsRegular;
+    position: relative;
+    bottom: 29px;
+    left: 91%;
+    color: #aaa;
+    cursor: pointer;
+`
+
+const PasswordDiv = styled.div`
+    width: 100%;
+`
+
 const Register = () => {
     const [value, setValue] = useState({ name: '', lastname: '', email: '', password: '' })
     const [error, setError] = useState('')
+    const [statePass, setStatePass] = useState(true)
 
     const navigate = useNavigate()
 
     const store = useAppContext()
+
+    const url = store.url
 
     const handleOnChange = ({ target }, field) => {
         setValue(props => ({ ...props, [field]: target.value }))
@@ -118,7 +134,7 @@ const Register = () => {
     const handleOnSubmit = async e => {
         e.preventDefault()
 
-        const response = await fetch('http://localhost:3200/api/register', {
+        const response = await fetch(`${url}/register`, {
             method: 'POST',
             body: JSON.stringify(value),
             headers: {
@@ -139,7 +155,7 @@ const Register = () => {
 
             const formData = new FormData()
             formData.append('file', store.image, store.image?.name)
-            await axios.post(`http://localhost:3200/api/userUpload/${responseData._id}`, formData, {
+            await axios.post(`${url}/userUpload/${responseData._id}`, formData, {
                 headers: { Authorization: localStorage.getItem('user') }
             })
 
@@ -168,15 +184,21 @@ const Register = () => {
                 </Div>
                 <FileInput small text="Upload image" />
                 <Input
+                    type="email"
                     value={value.email}
                     onChange={e => handleOnChange(e, 'email')}
                     placeholder="Email"
                 />
-                <Input
-                    value={value.password}
-                    onChange={e => handleOnChange(e, 'password')}
-                    placeholder="Password"
-                />
+                <PasswordDiv>
+                        <Input
+                            style={{ width: "calc(100% - 16px)" }}
+                            type={statePass ? 'password' : 'text'}
+                            value={value.password}
+                            onChange={e => handleOnChange(e, 'password')}
+                            placeholder="Password"
+                        />
+                        <ShowToggle onClick={() => setStatePass(!statePass)}>J</ShowToggle>
+                    </PasswordDiv>
                 <Button>Sign up</Button>
                 {error && <Error>{error}</Error>}
                 <Div>

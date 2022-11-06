@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from 'react'
 import axios from 'axios'
 
 const AppContext = createContext({
+    url: process.env.API_URL,
     last: [],
     articles: [],
     langArticles: [],
@@ -15,7 +16,7 @@ const AppContext = createContext({
     deleteConfirm: false,
     message: {},
     stateAuth: false,
-    role: 'guest',
+    role: '',
     setRole: () => {},
     setStateAuth: () => {},
     setMessage: () => {},
@@ -38,7 +39,7 @@ const AppContext = createContext({
 })
 
 const Store = ({ children }) => {
-    const url = 'http://localhost:3200/api'
+    const url = process.env.API_URL
 
     const [last, setLast] = useState([])
     const [articles, setArticles] = useState([])
@@ -66,7 +67,7 @@ const Store = ({ children }) => {
             setRole('guest')
             return false
         }
-        const res = await fetch('http://localhost:3200/api/checkAuth', {
+        const res = await fetch(`${url}/checkAuth`, {
             headers: {
                 Authorization: localStorage.getItem('user')
             }
@@ -129,9 +130,10 @@ const Store = ({ children }) => {
     const setLanguages = langs => {
         setLangs(langs)
     }
-    
+
     return (
         <AppContext.Provider value={{
+            url,
             last,
             articles,
             langArticles,

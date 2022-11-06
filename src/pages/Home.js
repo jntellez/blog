@@ -33,7 +33,7 @@ const Home = () => {
         <Layout
             banner
             page={'home'}
-            title={'DeveloperBlog'}
+            title={'Blog de JT'}
             description={'Mi documentación de los lenguajes más populares'}
             status={data.status}
         >

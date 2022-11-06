@@ -71,6 +71,8 @@ const Update = () => {
 
     const store = useAppContext()
 
+    const { url } = store
+
     const { pathname } = useLocation()
     const _id = pathname.split('/')[2]
 
@@ -85,7 +87,7 @@ const Update = () => {
 
                 if(data.image) {
                     axios.request({
-                        url: `http://localhost:3200/api/image/${data.image}`,
+                        url: `${url}/image/${data.image}`,
                         method: "GET",
                         responseType: "blob"
                     }).then(response => store.setImage(response.data !== null ? response.data : defaultImage))
@@ -110,7 +112,7 @@ const Update = () => {
     
     const date = new Date().now
     
-    const image = item.image.length < 400 ? item.image ? `http://localhost:3200/api/image/${item.image}` : null : item.image
+    const image = item.image.length < 400 ? item.image ? `${url}/image/${item.image}` : null : item.image
 
     return (
         <Layout

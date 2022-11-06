@@ -31,6 +31,8 @@ const UpdateButton = ({ update }) => {
     })
 
     const store = useAppContext()
+    
+    const { url } = store
 
     const articleModel = store.articleModel
 
@@ -53,13 +55,13 @@ const UpdateButton = ({ update }) => {
     const _id = pathname.split('/')[2]
 
     const handleOnClick = !update ? () => navigate(`/update/${_id}`) : async () => {
-        const response = await axios.put(`http://localhost:3200/api/${_id}`, article, {
+        const response = await axios.put(`${url}/${_id}`, article, {
             headers: { Authorization: localStorage.getItem('user') }
         })
         if(response.status === 204) {
             const formData = new FormData()
             formData.append('file', store.image, store.image.name ? store.image.name : article.title)
-            const savedImage = await axios.post(`http://localhost:3200/api/upload/${response.data ? response.data : _id}`, formData, {
+            const savedImage = await axios.post(`${url}/upload/${response.data ? response.data : _id}`, formData, {
                 headers: { Authorization: localStorage.getItem('user') }
             })
             if(savedImage.status === 200 && savedImage.data) {

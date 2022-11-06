@@ -158,7 +158,7 @@ const Contact = () => {
                     />
                     <Button type="submit">Enviar</Button>
 
-                    <input type="hidden" name="_next" value="http://localhost:3000/contact" />
+                    <input type="hidden" name="_next" value={`http://localhost:3000/contact`} />
                     <input type="hidden" name="_captcha" value="false" />
                 </Form>
 
