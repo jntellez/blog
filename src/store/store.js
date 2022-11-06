@@ -1,8 +1,9 @@
 import { createContext, useContext, useState } from 'react'
 import axios from 'axios'
+import env from 'react-dotenv'
 
 const AppContext = createContext({
-    url: process.env.API_URL,
+    url: env.API_URL,
     last: [],
     articles: [],
     langArticles: [],
@@ -39,7 +40,7 @@ const AppContext = createContext({
 })
 
 const Store = ({ children }) => {
-    const url = process.env.API_URL
+    const url = env.API_URL
 
     const [last, setLast] = useState([])
     const [articles, setArticles] = useState([])
