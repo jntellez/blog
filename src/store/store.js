@@ -1,9 +1,8 @@
 import { createContext, useContext, useState } from 'react'
 import axios from 'axios'
-import env from 'react-dotenv'
 
 const AppContext = createContext({
-    url: env.API_URL,
+    url: "https://blogdejt.herokuapp.com/api",
     last: [],
     articles: [],
     langArticles: [],
@@ -40,7 +39,7 @@ const AppContext = createContext({
 })
 
 const Store = ({ children }) => {
-    const url = env.API_URL
+    const url = "https://blogdejt.herokuapp.com/api"
 
     const [last, setLast] = useState([])
     const [articles, setArticles] = useState([])
