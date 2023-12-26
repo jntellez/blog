@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Store from './store/store'
 import AuthGuard from './guards/auth'
@@ -31,7 +32,9 @@ function App() {
                         <Route path="/register" element={<Register />} />
                     </Route>
                 </Routes>
+                <Analytics />
             </BrowserRouter>
+
         </Store>
     )
 }
