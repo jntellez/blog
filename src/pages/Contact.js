@@ -111,6 +111,8 @@ const Contact = () => {
 
     const store = useAppContext()
 
+    const { url } = store
+
     const handleOnChange = ({ target }) => {
         setValue(props => ({ ...props, [target.name]: target.value }))
     }
@@ -158,13 +160,13 @@ const Contact = () => {
                     />
                     <Button type="submit">Enviar</Button>
 
-                    <input type="hidden" name="_next" value={`http://localhost:3000/contact`} />
+                    <input type="hidden" name="_next" value={`${url}/contact`} />
                     <input type="hidden" name="_captcha" value="false" />
                 </Form>
 
                 <P>También puedes enviarme mensaje por cualquera de los siguientes medios:</P>
                 <ul style={{ marginTop: '-20px' }}>
-                    <Li>Twitter: <A href="#"></A></Li>
+                    <Li>Twitter: <A href="https://twitter.com/tellezAizen"></A></Li>
                     <Li>Linkein: <A href="https://www.linkedin.com/in/juan-t%C3%A9llez-94b3b7230/">https://www.linkedin.com/in/juan-t%C3%A9llez-94b3b7230/</A></Li>
                     <Li>Facebook: <A href="https://www.facebook.com/jany.tellez.14/">https://www.facebook.com/jany.tellez.14/</A></Li>
                 </ul>
