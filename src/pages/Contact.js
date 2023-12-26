@@ -166,7 +166,7 @@ const Contact = () => {
 
                 <P>También puedes enviarme mensaje por cualquera de los siguientes medios:</P>
                 <ul style={{ marginTop: '-20px' }}>
-                    <Li>Twitter: <A href="https://twitter.com/tellezAizen"></A></Li>
+                    <Li>Twitter: <A href="https://twitter.com/tellezAizen"></A>https://twitter.com/tellezAizen</Li>
                     <Li>Linkein: <A href="https://www.linkedin.com/in/juan-t%C3%A9llez-94b3b7230/">https://www.linkedin.com/in/juan-t%C3%A9llez-94b3b7230/</A></Li>
                     <Li>Facebook: <A href="https://www.facebook.com/jany.tellez.14/">https://www.facebook.com/jany.tellez.14/</A></Li>
                 </ul>
