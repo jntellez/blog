@@ -39,7 +39,7 @@ const AppContext = createContext({
 })
 
 const Store = ({ children }) => {
-    const url = "https://blogdejt.herokuapp.com/api"
+    const url = "https://blog-api-dev-jzrp.2.us-1.fl0.io/api"
 
     const [last, setLast] = useState([])
     const [articles, setArticles] = useState([])
