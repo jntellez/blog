@@ -129,7 +129,7 @@ const Contact = () => {
             <Wrap>
                 <P>Para contactar conmigo puedes enviarme un correo en el siguiente formulario:</P>
 
-                <Form action="https://formsubmit.co/juantellez916@gmail.com" method="POST" onSubmit={handleOnSubmit}>
+                <Form action="https://formsubmit.co/3be7ec5fa115906143fa7fbbefc16128" method="POST" onSubmit={handleOnSubmit}>
                     <Container>
                         <Input
                             value={value.name}
