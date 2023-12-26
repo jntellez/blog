@@ -59,7 +59,7 @@ const Contacts = ({ white, animation }) => {
     return(
         <Div>
             {animation && <Icon twitter ref={refTwitter}>t</Icon>}
-            <A white={white}>
+            <A white={white} href="https://twitter.com/tellezAizen">
                 <Item
                     twitter
                     white={white}
@@ -70,7 +70,7 @@ const Contacts = ({ white, animation }) => {
             </A>
 
             {animation && <Icon linkedin ref={refLinkedin}>l</Icon>}
-            <A white={white} href="https://www.linkedin.com/in/juan-téllez-94b3b7230/" >
+            <A white={white} href="https://www.linkedin.com/in/juan-téllez-94b3b7230/">
                 <Item
                     white={white}
                     animation={animation}
