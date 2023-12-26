@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState } from 'react'
 import { useAppContext } from '../store/store'
 
 import Layout from '../components/Layout'
@@ -111,7 +110,7 @@ const Contact = () => {
 
     const store = useAppContext()
 
-    const { url } = store
+    const { pageUrl } = store
 
     const handleOnChange = ({ target }) => {
         setValue(props => ({ ...props, [target.name]: target.value }))
@@ -160,8 +159,9 @@ const Contact = () => {
                     />
                     <Button type="submit">Enviar</Button>
 
-                    <input type="hidden" name="_next" value={`${url}/contact`} />
+                    <input type="hidden" name="_next" value={`${pageUrl}`} />
                     <input type="hidden" name="_captcha" value="false" />
+                    <input type="hidden" name="_template" value="box" />
                 </Form>
 
                 <P>También puedes enviarme mensaje por cualquera de los siguientes medios:</P>

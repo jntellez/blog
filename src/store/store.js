@@ -40,6 +40,7 @@ const AppContext = createContext({
 
 const Store = ({ children }) => {
     const url = "https://blog-api-dev-jzrp.2.us-1.fl0.io/api"
+    const pageUrl = window.location.href
 
     const [last, setLast] = useState([])
     const [articles, setArticles] = useState([])
@@ -134,6 +135,7 @@ const Store = ({ children }) => {
     return (
         <AppContext.Provider value={{
             url,
+            pageUrl,
             last,
             articles,
             langArticles,
