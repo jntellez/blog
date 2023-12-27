@@ -171,7 +171,7 @@ const Contact = () => {
                     <Li>Linkein: <A href="https://www.linkedin.com/in/juan-t%C3%A9llez-94b3b7230/">https://www.linkedin.com/in/juan-t%C3%A9llez-94b3b7230/</A></Li>
                     <Li>Facebook: <A href="https://www.facebook.com/jany.tellez.14/">https://www.facebook.com/jany.tellez.14/</A></Li>
                 </ul>
-                <P>Trato de constar rápido por cualquier medio que elijas. Puedes contactarme para resolver cualquier duda que te haya surgido de alguno de mis artículos, si lo se no dudaré en ayudarte.</P>
+                <P>Trato de contestar rápido por cualquier medio que elijas. Puedes contactarme para resolver cualquier duda que te haya surgido de alguno de mis artículos, si lo se no dudaré en ayudarte.</P>
             </Wrap>
         </Layout>
     )
