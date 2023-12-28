@@ -32,7 +32,7 @@ const Recommended = () => {
         <div>
             <Title>Destacados</Title>
             <Content>
-                {items.map(item => <SmallArticle key={item.title} item={item} />)}
+                {items.map(item => item && <SmallArticle key={item.title} item={item} />)}
             </Content>
         </div>
     )
