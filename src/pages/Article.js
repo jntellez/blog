@@ -144,10 +144,10 @@ const Article = () => {
                 switch(item.type) {
                     case 'sub': {
                         const id = item.body.split(' ').join('-').toLowerCase()
-                        return <Sub id={id} key={crypto.randomUUID()}>{item.body}</Sub>
+                        return <Sub style={{ order: item.order }} id={id} key={crypto.randomUUID()}>{item.body}</Sub>
                     }
-                    case 'normal': return <Normal key={crypto.randomUUID()}>{item.body}</Normal>
-                    case 'code': return <Code content={item.body} key={crypto.randomUUID()} />
+                    case 'normal': return <Normal style={{ order: item.order }} key={crypto.randomUUID()}>{item.body}</Normal>
+                    case 'code': return <Code order={item.order} content={item.body} key={crypto.randomUUID()} />
                     default: return <Code />
                 }
             })}</Wrap>

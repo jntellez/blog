@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from 'react'
 import axios from 'axios'
 
 const AppContext = createContext({
-    url: "https://blogdejt.herokuapp.com/api",
+    url: "http://localhost:8000",
     last: [],
     articles: [],
     langArticles: [],
@@ -39,7 +39,7 @@ const AppContext = createContext({
 })
 
 const Store = ({ children }) => {
-    const url = "https://blog-api-dev-jzrp.2.us-1.fl0.io/api"
+    const url = "https://blog-api-yh27.onrender.com/api" // "http://localhost:8000/api"
     const pageUrl = window.location.href
 
     const [last, setLast] = useState([])
