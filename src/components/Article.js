@@ -65,9 +65,9 @@ const Article = ({ article }) => {
     }
 
     const makeDescription = (item) => {
-        const array = item.split(' ')
+        const array = Array.isArray(item) && item.split(' ')
         let description = []
-        if(array.length >= 17) for(let i = 0; i < 17; i++) description[i] = array[i]
+        if (array.length >= 17) for(let i = 0; i < 17; i++) description[i] = array[i]
         else for(let i = 0; i < array.length; i++) description[i] = array[i]
         description.join()
         description += '...'

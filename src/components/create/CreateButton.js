@@ -55,7 +55,7 @@ const CreateButton = () => {
         const response = await axios.post(`${url}/`, article, {
             headers: { Authorization: localStorage.getItem('user') }
         })
-        if(response.status === 201) {
+        if (response.status === 201) {
             const formData = new FormData()
             formData.append('file', store.image, store.image?.name)
             const savedImage = await axios.post(`${url}/upload/${response.data}`, formData, {
